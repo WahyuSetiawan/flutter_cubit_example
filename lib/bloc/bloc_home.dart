@@ -25,7 +25,7 @@ class ChangeHome extends Bloc<HomePage, int> {
         break;
 
       case HomePage.HomeSetting:
-        yield 4;
+        yield 3;
         break;
 
       default:
