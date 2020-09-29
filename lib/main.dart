@@ -29,7 +29,13 @@ class _AppState extends State<App> {
       child: MaterialApp(
         home: Center(
             child: BlocProvider(
-          create: (context) => ChangeHome(),
+          create: (context) => ChangeHome(
+            RepositoryHome(
+              changeHomeProvider: ChangeHomeProvider(
+                homePage: HomePage.HomeGraph,
+              ),
+            ),
+          ),
           child: BlocBuilder<ChangeHome, int>(
             builder: (context, state) {
               return Scaffold(

@@ -7,29 +7,53 @@ enum HomePage {
   HomeSetting,
 }
 
-class ChangeHome extends Bloc<HomePage, int> {
-  ChangeHome() : super(0);
+class ChangeHomeProvider {
+  HomePage homePage;
 
-  Stream<int> mapEventToState(HomePage event) async* {
-    switch (event) {
+  ChangeHomeProvider({this.homePage});
+
+  HomePage getHomePage() {
+    return homePage;
+  }
+}
+
+class RepositoryHome {
+  ChangeHomeProvider changeHomeProvider;
+
+  RepositoryHome({this.changeHomeProvider});
+
+  int changeHomePage(HomePage homePage) {
+    changeHomeProvider.homePage = homePage;
+
+    switch (changeHomeProvider.homePage) {
       case HomePage.HomePopular:
-        yield 0;
+        return 0;
         break;
 
       case HomePage.HomeGraph:
-        yield 1;
+        return 1;
         break;
 
       case HomePage.HomeHistory:
-        yield 2;
+        return 2;
         break;
 
       case HomePage.HomeSetting:
-        yield 4;
+        return 3;
         break;
 
       default:
-        yield 0;
+        return 0;
     }
+  }
+}
+
+class ChangeHome extends Bloc<HomePage, int> {
+  RepositoryHome repositoryHome;
+
+  ChangeHome(this.repositoryHome) : super(0);
+
+  Stream<int> mapEventToState(HomePage event) async* {
+    yield repositoryHome.changeHomePage(event);
   }
 }
